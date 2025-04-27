@@ -37,18 +37,15 @@ public class RadixSort {
         sc.close();
     }
 
-    // Counting Sort function used by Radix Sort
     public static void countingSort(int[] arr, int num, int exp) {
         int output[] = new int[num];
         int count[] = new int[10]; // 0 to 9
 
-        // Step 1: Count occurrences
         for (int i = 0; i < num; i++) {
             int digit = (arr[i] / exp) % 10;
             count[digit]++;
         }
 
-        // Step 2: Cumulative count
         for (int i = 1; i < 10; i++) {
             count[i] += count[i - 1];
         }
@@ -60,7 +57,6 @@ public class RadixSort {
             count[digit]--;
         }
 
-        // Step 4: Copy output to original array
         for (int i = 0; i < num; i++) {
             arr[i] = output[i];
         }
