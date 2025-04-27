@@ -12,7 +12,7 @@ public class SpecificPosition {
             arr[i] = sc.nextInt();
         }
 
-        System.out.println("where in array enter element :");
+        System.out.println("where in array enter element:");
         int element = sc.nextInt();
         System.out.println("enter a number for insert in :"+ element +" position");
         int num1 = sc.nextInt();
