@@ -3,8 +3,15 @@ import java.util.Scanner;
 public class RecursiveSearchInArray {
 
     public static int isInArray(int[] a, int m, int index) {
-        
-        return 0; 
+        if (index == a.length) {
+            return 0; // base case: not found
+        }
+    
+        if (a[index] == m) {
+            return 1; // found
+        }
+    
+        return isInArray(a, m, index + 1);
     }
 
     public static void main(String[] args) {
