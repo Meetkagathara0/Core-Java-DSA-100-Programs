@@ -1,53 +1,49 @@
-import java.io.*;
-
-public class SecondMaxMinDifference {
+public class Main {
     public static int[] FindDartAndRoundWinner(int[][] rounds) {
         int score = 501;
 
-        for (int round = 0; round < rounds.length; round++) {
-            int tempScore = score; // simulate score
-            boolean isValid = true;
+        for (int i = 0; i < rounds.length; i++) {
+            int roundSum = rounds[i][0] + rounds[i][1] + rounds[i][2];
 
-            for (int dart = 0; dart < 3; dart++) {
-                tempScore -= rounds[round][dart];
-
-                if (tempScore < 0) {
-                    isValid = false; // round bust
-                    break;
-                }
-
-                if (tempScore == 0) {
-                    return new int[] { round + 1, dart + 1 };
-                }
+            // Check if round sum exceeds current score
+            if (roundSum > score) {
+                continue; // skip entire round
             }
 
-            if (isValid) {
-                score = tempScore; // apply only if valid
+            // Process dart by dart
+            for (int j = 0; j < 3; j++) {
+                int dartScore = rounds[i][j];
+                score -= dartScore;
+
+                if (score == 0) {
+                    // Return 1-based round and dart index
+                    return new int[]{i + 1, j + 1};
+                }
+
+                if (score < 0) {
+                    break; // should never happen due to sum check
+                }
             }
         }
 
-        return new int[] { -1, -1 };
+        return new int[]{-1, -1};
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int rounds = Integer.parseInt(reader.readLine().trim());
+        int roundsCount = Integer.parseInt(reader.readLine().trim());
+        int[][] intArray = new int[roundsCount][];
 
-        int[][] intArray = new int[rounds][];
-
-        for (int i = 0; i < rounds; i += 1) {
+        for (int i = 0; i < roundsCount; i++) {
             String[] arTemp = reader.readLine().trim().split(" ");
             int[] intArr = strArrayToIntArray(arTemp);
             intArray[i] = intArr;
         }
 
         int[] result = FindDartAndRoundWinner(intArray);
-
         writer.write(result[0] + " " + result[1]);
-
         writer.flush();
         writer.close();
     }
